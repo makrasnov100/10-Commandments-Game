@@ -52,6 +52,7 @@ public class StoryController : MonoBehaviour
     public SpriteRenderer bg;
     public SmoothFollow follow;
     public List<EffectSpawner> topEffects = new List<EffectSpawner>();
+    public List<EffectSpawner> bottomEffects = new List<EffectSpawner>();
 
     //Go to hell options
     public float durationToOpenDoor;
@@ -141,6 +142,12 @@ public class StoryController : MonoBehaviour
         follow.enabled = true;
 
         //Spawn in bad items on top of person
+
+        //Start effect show
+        foreach (EffectSpawner effect in bottomEffects)
+        {
+            effect.SpawnEffect();
+        }
 
         //Open the gates
         float startTime = Time.time;
