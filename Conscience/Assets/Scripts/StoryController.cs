@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StoryController : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class StoryController : MonoBehaviour
     //Content
     public List<string> goodChoises = new List<string>()
     {
-        "Go to your Christian church for some spiritual leadership.",
+        "Make a clay statue of depicting Jesus and put it in your car's cup holder for good luck.",
+        "Go to a Christian church for some spiritual leadership.",
         "Stay silent. Like normal people.",
         "Read the Bible, pray and spend some quality time with family.",
         "Earn just enough money for a 20 year-old Corvette by doing side gigs for 10 years.",
@@ -23,20 +25,23 @@ public class StoryController : MonoBehaviour
 
     public List<string> badChoises = new List<string>()
     {
+        "Listen to an audiobook of Leviticus on repeat while driving.",
         "Dance around a golden statue as if it was your god.",
         "Say 'OH MY G*D' many many times for no reason.",
         "Work overtime on a Saturday to get enough money for next friday's date night.",
         "Take your dad's new BMW for a spin, despite him saying that it was off limits.",
         "Shoot a running away thief that has stole your million dollar lottery ticket. ",
         "Enjoy a fun weekend in Greece with your past roomate's wife.",
-        "Pickup a quarter someone just dropped and run away as fast as you can.",
-        "Tell your class friends how horrible your roomate is even though they just fine.",
+        "Pickup a quarter someone just dropped and naruto run to the nearest arcade to use it.",
+        "Tell your class friends how horrible your roomate is even though they are just fine.",
         "Stare at your classmate's golden iPhone imagining how nice it would be to have it."
     };
 
     //UI
+    public GameObject BackStory;
     public GameObject Option1GO;
     public GameObject Option2GO;
+    public GameObject RestartGo;
     public TMP_Text Option1;
     public TMP_Text Option2;
 
@@ -57,10 +62,18 @@ public class StoryController : MonoBehaviour
     //Utility
     public Button tempBtn;
 
-    // Start is called before the first frame update
-    void Start()
+
+    public void OnBeginStory()
     {
         ShowNextScenario();
+        BackStory.SetActive(false);
+        Option1GO.SetActive(true);
+        Option2GO.SetActive(true);
+    }
+
+    public void OnRestartGame()
+    {
+        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
     }
 
     public void OnChooseOption(int side)
@@ -131,10 +144,10 @@ public class StoryController : MonoBehaviour
 
 
         //Wait a bit
-
+        yield return new WaitForSeconds(3f);
 
         //Show Restart Button
-
+        RestartGo.SetActive(true);
     }
 
 
