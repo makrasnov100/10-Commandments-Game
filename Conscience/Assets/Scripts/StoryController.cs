@@ -44,12 +44,14 @@ public class StoryController : MonoBehaviour
     public GameObject RestartGo;
     public TMP_Text Option1;
     public TMP_Text Option2;
+    public Animator bgAnim;
 
     //In-Game
     public GameObject leftPlatform;
     public GameObject rightPlatform;
     public SpriteRenderer bg;
     public SmoothFollow follow;
+    public List<EffectSpawner> topEffects = new List<EffectSpawner>();
 
     //Go to hell options
     public float durationToOpenDoor;
@@ -79,11 +81,20 @@ public class StoryController : MonoBehaviour
     public void OnChooseOption(int side)
     {
         tempBtn.Select();
-        if (side == curGoodSide)
+        if (side == curGoodSide)    //good side is one that make player have a "GameOver"
         {
+            bgAnim.SetBool("isWrong", true);
             ShowGameOver(false);
         }
-        ShowNextScenario();
+        else
+        {
+            bgAnim.SetBool("isCorrect", true);
+            ShowNextScenario();
+            foreach (EffectSpawner effect in topEffects)
+            {
+                effect.SpawnEffect();
+            }
+        }
     }
 
     private void ShowNextScenario()
